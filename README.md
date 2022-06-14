@@ -4,7 +4,7 @@ Continuous and data driven descriptors
 
 | Description | Input  | Output  | Training Data | Experimental Validation |
 | ------- | --- | --- | --- | --- |
-| Continuous descriptor trained on multiple sequence based representations of molecules. | SMILES | Vectors | ~72,000,000 compounds | No |
+| Continuous descriptor trained on multiple sequence-based representations of molecules. The representations can be extracted and used as descriptors. | SMILES | Vectors | ~72,000,000 compounds | No |
 
 ## Source code
 This model is published by Winter, Robin and Montanari, Floriane and Noé, Frank and Clevert, Djork-Arné. Learning continuous and data-driven molecular descriptors by translating equivalent chemical representations. *The Royal Society of Chemistry* (2019)  DOI:[10.1039/C8SC04175J
