@@ -1,26 +1,40 @@
-# Continuous and data driven descriptors
+# Continuous and data-driven descriptors
 
-## Model Identifiers
-- Slug: ontinuous-data-driven
-- Ersilia ID: eos7a04
-- Tags: fingerprint, ML, embedding
+Low dimension continuous descriptor based on a neural machine translation model. This model has been trained by inputting a IUPAC molecular representation to obtain its SMILES. The intermediate continuous vector representation encoded by when reading the IUPAC name is a representation of the molecule, containing all the information to generate the output sequence (SMILES). This model has been pretrained on a large dataset combining ChEMBL and ZINC.
 
-## Model Description
-Continuous descriptor trained on multiple sequence based representations of molecules. 
-- Input: SMILES 
-- Output: Vectors 
-- Model typw: Regression
-- Mode of training: Pretrained
-- Training data: ~72,000,000 compounds 
-- Experimentally validated: No 
+## Identifiers
 
-## Source code
-This model is published by Winter, Robin and Montanari, Floriane and Noé, Frank and Clevert, Djork-Arné. Learning continuous and data-driven molecular descriptors by translating equivalent chemical representations. *The Royal Society of Chemistry* (2019)  DOI:[10.1039/C8SC04175J
-](http://dx.doi.org/10.1039/C8SC04175J)
-- Code: http://https//github.com/jrwnter/cddd
+* EOS model ID: `eos7a04`
+* Slug: `cdd-descriptor`
+
+## Characteristics
+
+* Input: `Compound`
+* Input Shape: `Single`
+* Task: `Representation`
+* Output: `Descriptor`
+* Output Type: `Float`
+* Output Shape: `List`
+* Interpretation: Embedding representation of a molecule
+
+## References
+
+* [Publication](https://pubs.rsc.org/en/content/articlelanding/2019/sc/c8sc04175j)
+* [Source Code](https://github.com/jrwnter/cddd)
+* Ersilia contributor: [miquelduranfrigola](https://github.com/miquelduranfrigola)
+
+## Citation
+
+If you use this model, please cite the [original authors](https://pubs.rsc.org/en/content/articlelanding/2019/sc/c8sc04175j) of the model and the [Ersilia Model Hub](https://github.com/ersilia-os/ersilia/blob/master/CITATION.cff).
 
 ## License
-The GPL-v3 license applies to all parts of the repository that are not externally maintained libraries. This repository uses the externally maintained library "cddd", located at `/model` and licensed under a MIT License
 
-## History
-- Model was downloaded and incorporated on September 16, 2021 
+This package is licensed under a GPL-3.0 license. The model contained within this package is licensed under a MIT license.
+
+Notice: Ersilia grants access to these models 'as is' provided by the original authors, please refer to the original code repository and/or publication if you use the model in your research.
+
+## About Us
+
+The [Ersilia Open Source Initiative](https://ersilia.io) is a Non Profit Organization ([1192266](https://register-of-charities.charitycommission.gov.uk/charity-search/-/charity-details/5170657/full-print)) with the mission is to equip labs, universities and clinics in LMIC with AI/ML tools for infectious disease research.
+
+[Help us](https://www.ersilia.io/donate) achieve our mission!
