@@ -23,6 +23,9 @@ Low dimension continuous descriptor based on a neural machine translation model.
 * [Source Code](https://github.com/jrwnter/cddd)
 * Ersilia contributor: [miquelduranfrigola](https://github.com/miquelduranfrigola)
 
+## Ersilia model URLs
+* [GitHub](https://github.com/ersilia-os/eos7a04)
+
 ## Citation
 
 If you use this model, please cite the [original authors](https://pubs.rsc.org/en/content/articlelanding/2019/sc/c8sc04175j) of the model and the [Ersilia Model Hub](https://github.com/ersilia-os/ersilia/blob/master/CITATION.cff).
