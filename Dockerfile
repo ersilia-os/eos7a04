@@ -1,7 +1,7 @@
 FROM bentoml/model-server:0.11.0-py36
 MAINTAINER ersilia
  
-RUN pip install rdkit-pypi
+RUN pip install rdkit-pypi==2021.9.4
 RUN pip install zmq
 RUN pip install tensorflow==1.9
 RUN pip install pandas==1.0.3
