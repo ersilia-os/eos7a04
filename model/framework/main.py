@@ -1,4 +1,6 @@
 """Module to extract contineous data-driven descriptors for a file of SMILES."""
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 import os
 import sys
 import argparse
