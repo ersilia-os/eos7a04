@@ -1,0 +1,1 @@
+python $1/main.py -i $2 -o $3

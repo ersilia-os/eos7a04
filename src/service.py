@@ -38,9 +38,9 @@ def CollapseNones(values):
 
 class Model(object):
     def __init__(self):
-        self.DATA_FILE = "data.csv"
-        self.PRED_FILE = "pred.csv"
-        self.RUN_FILE = "run.sh"
+        self.DATA_FILE = "_data.csv"
+        self.OUTPUT_FILE = "_output.csv"
+        self.RUN_FILE = "_run.sh"
         self.LOG_FILE = "run.log"
 
     def load(self, framework_dir, checkpoints_dir):
@@ -53,23 +53,22 @@ class Model(object):
     def set_framework_dir(self, dest):
         self.framework_dir = os.path.abspath(dest)
 
-    def predict(self, smiles_list):
-        tmp_folder = tempfile.mkdtemp()
+    def run(self, input_list):
+        tmp_folder = tempfile.mkdtemp(prefix="eos-")
         data_file = os.path.join(tmp_folder, self.DATA_FILE)
-        pred_file = os.path.join(tmp_folder, self.PRED_FILE)
+        output_file = os.path.join(tmp_folder, self.OUTPUT_FILE)
         log_file = os.path.join(tmp_folder, self.LOG_FILE)
         with open(data_file, "w") as f:
             f.write("smiles" + os.linesep)
-            for smiles in smiles_list:
-                f.write(smiles + os.linesep)
+            for inp in input_list:
+                f.write(inp + os.linesep)
         run_file = os.path.join(tmp_folder, self.RUN_FILE)
         with open(run_file, "w") as f:
             lines = [
-                "python {0}/run_cddd.py -i {1} -o {2} --smiles_header 'smiles' --model_dir {3}/default_model/".format(
+                "bash {0}/run.sh {0} {1} {2}".format(
                     self.framework_dir,
                     data_file,
-                    pred_file,
-                    self.checkpoints_dir
+                    output_file
                 )
             ]
             f.write(os.linesep.join(lines))
@@ -83,15 +82,16 @@ class Model(object):
             ERROR_STRING = "ValueError: need at least one array to concatenate"
             if ERROR_STRING in log:
                 R = []
-                for smi in smiles_list:
+                for smi in input_list:
                     R += [{"embedding": None}]
                 return R
-        with open(pred_file, "r") as f:
+        with open(output_file, "r") as f:
             reader = csv.reader(f)
             h = next(reader)[3:]
             R = []
             for r in reader:
                 R += [{"embedding": CollapseNones([Float(x) for x in r[3:]])}]
+        shutil.rmtree(tmp_folder)
         return R
 
 
@@ -145,8 +145,8 @@ class Artifact(BentoServiceArtifact):
 @artifacts([Artifact("model")])
 class Service(BentoService):
     @api(input=JsonInput(), batch=True)
-    def predict(self, input: List[JsonSerializable]):
+    def run(self, input: List[JsonSerializable]):
         input = input[0]
-        smiles_list = [inp["input"] for inp in input]
-        output = self.artifacts.model.predict(smiles_list)
+        input_list = [inp["input"] for inp in input]
+        output = self.artifacts.model.run(input_list)
         return [output]

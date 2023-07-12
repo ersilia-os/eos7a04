@@ -1,4 +1,6 @@
 """Module to extract contineous data-driven descriptors for a file of SMILES."""
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 import os
 import sys
 import argparse
@@ -6,8 +8,11 @@ import pandas as pd
 import tensorflow as tf
 from cddd.inference import InferenceModel
 from cddd.preprocessing import preprocess_smiles
-from cddd.hyperparameters import DEFAULT_DATA_DIR
-_default_model_dir = os.path.join(DEFAULT_DATA_DIR, 'default_model')
+#from cddd.hyperparameters import DEFAULT_DATA_DIR
+DEFAULT_DATA_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '/cddd/data'))
+
+checkpoints_dir = os.path.abspath(os.path.join(__file__,"../../checkpoints"))
+_default_model_dir = os.path.join(checkpoints_dir, 'default_model')
 FLAGS = None
 
 
@@ -67,20 +72,20 @@ def main(unused_argv):
     file = FLAGS.input
     df = read_input(file)
     if FLAGS.preprocess:
-        print("start preprocessing SMILES...")
+        # print("start preprocessing SMILES...")
         df["new_smiles"] = df[FLAGS.smiles_header].map(preprocess_smiles)
         sml_list = df[~df.new_smiles.isna()].new_smiles.tolist()
-        print("finished preprocessing SMILES!")
+        # print("finished preprocessing SMILES!")
     else:
         sml_list = df[FLAGS.smiles_header].tolist()
-    print("start calculating descriptors...")
+    # print("start calculating descriptors...")
     infer_model = InferenceModel(model_dir=model_dir,
                                  use_gpu=FLAGS.gpu,
                                  batch_size=FLAGS.batch_size,
                                  cpu_threads=FLAGS.cpu_threads)
     descriptors = infer_model.seq_to_emb(sml_list)
-    print("finished calculating descriptors! %d out of %d input SMILES could be interpreted"
-          %(len(sml_list), len(df)))
+    # print("finished calculating descriptors! %d out of %d input SMILES could be interpreted"
+    #       %(len(sml_list), len(df)))
     if FLAGS.preprocess:
         df = df.join(pd.DataFrame(descriptors,
                                   index=df[~df.new_smiles.isna()].index,
@@ -89,7 +94,7 @@ def main(unused_argv):
         df = df.join(pd.DataFrame(descriptors,
                                   index=df.index,
                                   columns=["cddd_" + str(i+1) for i in range(512)]))
-    print("writing descriptors to file...")
+    # print("writing descriptors to file...")
     df.to_csv(FLAGS.output)
 
 def main_wrapper():

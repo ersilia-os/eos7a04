@@ -25,6 +25,8 @@ Low dimension continuous descriptor based on a neural machine translation model.
 
 ## Ersilia model URLs
 * [GitHub](https://github.com/ersilia-os/eos7a04)
+* [AWS S3](https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos7a04.zip)
+* [DockerHub](https://hub.docker.com/r/ersiliaos/eos7a04) (AMD64)
 
 ## Citation
 

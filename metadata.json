@@ -27,5 +27,10 @@
     "Publication": "https://pubs.rsc.org/en/content/articlelanding/2019/sc/c8sc04175j",
     "Source Code": "https://github.com/jrwnter/cddd",
     "License": "MIT",
-    "Contributor": "miquelduranfrigola"
+    "Contributor": "miquelduranfrigola",
+    "S3": "https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos7a04.zip",
+    "DockerHub": "https://hub.docker.com/r/ersiliaos/eos7a04",
+    "Docker Architecture": [
+        "AMD64"
+    ]
 }
