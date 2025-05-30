@@ -1,7 +1,7 @@
 {
     "Identifier": "eos7a04",
     "Slug": "cdd-descriptor",
-    "Status": "Ready",
+    "Status": "Archived",
     "Title": "Continuous and data-driven descriptors",
     "Description": "Low dimension continuous descriptor based on a neural machine translation model. This model has been trained by inputting a IUPAC molecular representation to obtain its SMILES. The intermediate continuous vector representation encoded by when reading the IUPAC name is a representation of the molecule, containing all the information to generate the output sequence (SMILES). This model has been pretrained on a large dataset combining ChEMBL and ZINC.\n",
     "Mode": "Pretrained",
